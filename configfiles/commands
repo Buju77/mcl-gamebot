@@ -1,0 +1,95 @@
+^!test$|test failed.
+^!blub$|blub
+^!haha$|http://perso.orange.fr/kwik-e-simpsons/wallpapers/nelson-1024x768.gif
+^!stats$|http://a1ph.dyndns.org/stuff/ircstats.php
+^!blog$|http://mc04.a1ph.dyndns.org/
+^!fh(?: (.*))?$|http://a1ph.dyndns.org/fh/$1
+^!hishe$|http://www.howitshouldhaveended.com/
+^!homepagelw$|https://homer.fh-hagenberg.at/homepages/mc040##/
+^!homelw$|https://homer.fh-hagenberg.at/mcjg04/mc040##/
+^!exchange$|https://homer.fh-hagenberg.at/mcjg04/ExchangeJg04mc/
+^!shoot ([^ ]+)$|$1: [automatic]: *BANG*
+^!bfg ([^ ]+)$|$1: [BFG-9000]: *BBBRRRRRRRRRRRAAAAAAAAZZZZZZZZZZZZZZZZZZ!!!!!!!!!!!!*
+^!help$|http://mc04.strangled.net/botcmds.html
+^!mitleid ([^ ]+)$|du bist so arm, $1!
+^!gratz ([^ ]+)$|gratuliere $1!
+^!jfgi ([^ ]+)$|$1, http://justfuckinggoogleit.com/
+^!jfgi\s+(\S+)\s+(.+)$|$1, http://www.justfuckinggoogleit.com/search.pl?query=$2
+^!go ([^ ]+)$|come on, go go go, $1!
+^!ping$|pong!
+^!syn$|syn! ack!
+^!ack$|connection established!
+^!fin$|connection dropped!
+^v68 ([^ ]+)$|$1 needs motivation!
+^v68$|% needs motivation!
+^v69 ([^ ]+)$|$1 needs k-fe!
+^v69$|% needs k-fe!
+^v10$|Enemy in disguise.
+^v11$|Path Cleared.
+^v12$|The enemy is weakened.
+^v13$|All clear.
+^v14$|Incoming.
+^v15$|Fire in the hole!
+^v16$|I'm defending.
+^v17$|I'm attacking.
+^v18$|Taking fire!
+^v19$|Mines cleared.
+^v21$|I need a Medic!
+^v22$|I need ammo!
+^v23$|I need backup!
+^v24$|We need an engineer!
+^v25$|Cover me!
+^v26$|Hold fire!
+^v27$|Where to?
+^v28$|We need Covert Ops!
+^v31$|Follow me! 
+^v32$|Let's go!
+^v33$|Move!
+^v34$|Clear the path!
+^v35$|Defend our objective!
+^v36$|Disarm the dynamite!
+^v37$|Clear the mines!
+^v38$|Reinforce the offense!
+^v39$|Reinforce the defense!
+^v41$|Affirmative!
+^v42$|Negative!
+^v43$|Thanks a lot!
+^v44$|You're welcome.
+^v45$|Sorry!
+^v46$|Oops!
+^v51$|Yes!
+^v52$|No!
+^v53$|The enemy is weakened.
+^v54$|Hi!
+^v55$|Bye.
+^v56$|Great shot!
+^v57$|Yeah!
+^v581$|Thanks a lot!
+^v582$|You're welcome.
+^v583$|Oops!
+^v584$|Sorry!
+^v585$|Hold your fire!
+^v586$|Good game!
+^v61$|I'm a soldier.
+^v62$|I'm a medic.
+^v63$|I'm an engineer.
+^v64$|I'm a field ops.
+^v65$|I'm a covert ops.
+^v70$|Escort the vehicle!
+^v71$|Command acknowledged!
+^v72$|Command declined!
+^v73$|Command completed!
+^v74$|Destroy primary objective!
+^v75$|Destroy secondary objective!
+^v76$|Destroy construction!
+^v77$|I'm constructing!
+^v78$|Repair the vehicle!
+^v79$|Destroy the vehicle!
+^z7$|Attack!
+^z8$|Fall back!
+^.*what does this do\??.*$|%, it sucks in air
+^.*what time is it\??.*$|%, time to unpimp se auto!
+^.*ich brauch zeuch.*$|%: ich hab alles da, ich kann alles besorgen
+^.*wat is wacken\??.*$|%, dat is wacken: http://www.wacken.com [+]
+^.*(%nick%\s*[:,]?\s*usuk|usuk\s*,?\s*%nick%).*$|%, aufs maul?
+^.*(auf'?s\s+maul\s*,?\s*%nick%|%nick%\s*[:,]?\s*auf'?s\s+maul).*$|nee, lass ma stecken %

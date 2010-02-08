@@ -1,0 +1,2 @@
+copy $(ProjectDir)\..\Plugins\compiled_dlls\*.dll $(TargetDir)\plugins\ /y
+copy $(ProjectDir)\..\Plugins\compiled_dlls\*.pdb $(TargetDir)\plugins\ /y
