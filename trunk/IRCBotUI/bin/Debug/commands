@@ -34,7 +34,7 @@
 ^v17$|I'm attacking.
 ^v18$|Taking fire!
 ^v19$|Mines cleared.
-^v21$|I need a Medic!
+^v21$|alph, I need a Medic!
 ^v22$|I need ammo!
 ^v23$|I need backup!
 ^v24$|We need an engineer!
@@ -85,6 +85,7 @@
 ^v77$|I'm constructing!
 ^v78$|Repair the vehicle!
 ^v79$|Destroy the vehicle!
+^v99$|My code is building!
 ^z7$|Attack!
 ^z8$|Fall back!
 ^.*what does this do\??.*$|%, it sucks in air
