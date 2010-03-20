@@ -26,6 +26,11 @@ namespace IRCBotInterfaces
             string actionMsg = String.Format("{0}ACTION {1}{0}", (char)1, message);
             return Utilities.BuildPrivMsg(receiver, actionMsg);
         }
+
+        public static void Out(ICommand caller, string message)
+        {
+            Console.WriteLine(DateTime.Now.ToLongTimeString() + ": " + caller.ID + " > " + message);
+        }
         #endregion
     }
 }
