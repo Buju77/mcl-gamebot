@@ -238,7 +238,7 @@ namespace irc_bot_v2._0
         }
 
         /// <summary>
-        /// called every minute by the timer
+        /// called every second by the timer
         /// </summary>
         /// <param in_name="o"></param>
         protected void timerEvent(object o)
@@ -246,7 +246,7 @@ namespace irc_bot_v2._0
             if (this.TimerSecondOccured != null) { this.TimerSecondOccured(this, new EventArgs()); }
 
             this.ivDumpCounter++;
-            if (this.ivDumpCounter >= 60 * 60)
+            if (this.ivDumpCounter >= 60 * 60)      // Buju every hour?
             {
                 this.Dump();
                 this.ivUsers.SaveUsersToFile(Options.GetInstance().UserInfoFileName);
@@ -259,10 +259,21 @@ namespace irc_bot_v2._0
             }
 
             this.ivConnChkCounter++;
-            if (this.ivConnChkCounter >= 10 * 60)
+            if (this.ivConnChkCounter >= 10 * 60)   // every 10 minutes?
             {
-                this.ivNetwork.Send(Utilities.BuildPrivMsg(Options.GetInstance().Nickname, "keep alive ping"));
                 Program.Out("### SENDING KEEP ALIVE TO '" + Options.GetInstance().Nickname + "' ###");
+
+                // 2010-03-20 Buju: added try-catch around network.Send()
+                try
+                {
+                    this.ivNetwork.Send(Utilities.BuildPrivMsg(Options.GetInstance().Nickname, "keep alive ping"));
+                }
+                catch (Exception ex)
+                {
+                    Program.Out("### Sending Keep Alive to '" + Options.GetInstance().Nickname + "'  F A I L E D !   ###\tWill try in 2 Minutes again ...");
+                    Program.Out(ex.Message);
+                    this.ivConnChkCounter = 8 * 60;
+                }
             }
         }//protected void timerEvent(object o)
 
