@@ -4,18 +4,21 @@ hangman
 Insult
 ### plugin with id: Motivation ###
 Motivation
-m+http://www.hornoxe.com/wp-content/picdumps/picdump116/thumbs/thumbs_hornoxe.com_picdump116_06.jpg
-m+http://www.emok.tv/wp-content/gallery/emok-picdump-99/thumbs/thumbs_EMOK%20Picdump%2099_043.jpg
-m+http://www.bildschirmarbeiter.com/content/images/picdump-09-08-21/picdump-28.jpg
-m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/thumbs/thumbs_13.jpg
-m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/38.jpg
-m+http://xkcd.com/303/
-m+http://cheezhawtness.files.wordpress.com/2010/03/129123222430221499.jpg
-m-http://www.funlinx.to/content/bilder/picdump_102/53.jpg
-m-http://www.eblogx.com/media/pictures/special/picturedump-68/19.jpg
-m-http://cheezhawtness.files.wordpress.com/2010/03/129126609397811277.jpg
-w+http://zensiert.to/media/1/20080412-2.jpg
-w+http://xkcd.com/303/
+rankings buju 1;
+turns 1 1 1 1
+m+http://www.hornoxe.com/wp-content/picdumps/picdump116/thumbs/thumbs_hornoxe.com_picdump116_06.jpg 0
+m+http://www.emok.tv/wp-content/gallery/emok-picdump-99/thumbs/thumbs_EMOK%20Picdump%2099_043.jpg 0
+m+http://www.bildschirmarbeiter.com/content/images/picdump-09-08-21/picdump-28.jpg 1
+m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/thumbs/thumbs_13.jpg 0
+m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/38.jpg 0
+m+http://xkcd.com/303/ 0
+m+http://cheezhawtness.files.wordpress.com/2010/03/129123222430221499.jpg 0
+m-http://www.funlinx.to/content/bilder/picdump_102/53.jpg 0
+m-http://www.eblogx.com/media/pictures/special/picturedump-68/19.jpg 0
+m-http://cheezhawtness.files.wordpress.com/2010/03/129126609397811277.jpg 0
+w+http://zensiert.to/media/1/20080412-2.jpg 0
+w+http://xkcd.com/303/ 0
+w-http://xkcd.com/302/ 0
 ### plugin with id: MyRandom ###
 MyRandom
 ### plugin with id: mystats ###
