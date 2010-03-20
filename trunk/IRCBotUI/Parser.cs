@@ -168,7 +168,14 @@ namespace irc_bot_v2._0
                 {
                     dumpContent.Add("### plugin with id: " + plug.ID + " ###");
                     dumpContent.Add(plug.ID);
-                    dumpContent.AddRange(plug.DumpToFile());
+                    List<string> temp = plug.DumpToFile();
+                    if (temp == null)
+                    {
+                        // 2010-03-20 Buju: to prevent NullReferenceException
+                        Program.Out(string.Format("### Warning in plugin: '{0}' (Version {1}) ###\tDumpToFile() is NULL!", plug.ID, plug.Version));
+                        temp = new List<string>();
+                    }
+                    dumpContent.AddRange(temp);
                 }
                 catch (NotImplementedException)
                 {

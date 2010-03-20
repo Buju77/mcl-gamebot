@@ -194,7 +194,7 @@ namespace BotPlugins
 
         public List<string> DumpToFile()
         {
-            return null;
+            return new List<string>();
         }
 
         public void LoadFromFile(List<string> fileDump)

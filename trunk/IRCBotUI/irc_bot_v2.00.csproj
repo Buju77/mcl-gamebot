@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>irc_bot_v2._0</RootNamespace>
-    <AssemblyName>irc_bot_v2.00</AssemblyName>
+    <AssemblyName>irc_bot_v2.01</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
