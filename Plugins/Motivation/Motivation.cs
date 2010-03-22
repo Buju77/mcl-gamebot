@@ -24,9 +24,9 @@ namespace Motivation
         private Random m_rand;
         private int m_wpTurn, m_wmTurn, m_mpTurn, m_mmTurn;
 
-        private const string REGEX_HELP = "^![mw]otivation help?$";
-        private const string REGEX_RANKING = "^![mw]otivation ranking?$";
-        private const string REGEX_COUNT = "^![mw]otivation count?$";
+        private const string REGEX_HELP = "^![mw]otivation help$";
+        private const string REGEX_RANKING = "^![mw]otivation ranking$";
+        private const string REGEX_COUNT = "^![mw]otivation count$";
         private const string REGEX_ADD_ITEM = "^!add_[mw]otivation ([+-]) ([^ ]+)$";
         private const string REGEX_GETMOTIVATED = "^![mw]otivation[+-]?$";
         private const string REGEX_URL = "^((http(s?))\\://)((([a-zA-Z0-9_\\-]{2,}\\.)+[a-zA-Z]{2,})|((?:(?:25[0-5]|2[0-4]\\d|[01]\\d\\d|\\d?\\d)(?(\\.?\\d)\\.)){4}))(:[a-zA-Z0-9]+)?(/[a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~]*)?$";
