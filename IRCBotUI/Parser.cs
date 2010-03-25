@@ -213,11 +213,13 @@ namespace irc_bot_v2._0
             else if (message.StartsWith(":") && !message.StartsWith(":" + Options.GetInstance().ServerName))
             {//any input from other users
                 ParseMsgs(message);
+                this.ivParent.ResetConnChk();
             }//else if (in_msg.StartsWith(":") && !in_msg.StartsWith(":" + this.opts.ServerName))
 
             else if (message.StartsWith(":" + Options.GetInstance().ServerName))
             {//any server messages (login, welcome msg, etc.)
                 ParseServerMsgs(message.Substring(Options.GetInstance().ServerName.Length + 2));
+                this.ivParent.ResetConnChk();
             }//else if (in_msg.StartsWith(":" + this.opts.ServerName))
         }
 
