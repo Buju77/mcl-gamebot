@@ -234,6 +234,7 @@ namespace irc_bot_v2._0
             Program.Out("sleeping one minute before reconnect attempt ...");
             Thread.Sleep(60 * 1000);//one minute
             Program.Out("trying to reconnect ...");
+            this.ivConnChkCounter = 0;
             this.ivNetwork.Connect(Options.GetInstance().ServerName, Convert.ToInt32(Options.GetInstance().Port));
         }
 
@@ -246,7 +247,7 @@ namespace irc_bot_v2._0
             if (this.TimerSecondOccured != null) { this.TimerSecondOccured(this, new EventArgs()); }
 
             this.ivDumpCounter++;
-            if (this.ivDumpCounter >= 60 * 60)      // Buju every hour?
+            if (this.ivDumpCounter >= 60 * 60)      // every hour
             {
                 this.Dump();
                 this.ivUsers.SaveUsersToFile(Options.GetInstance().UserInfoFileName);
@@ -259,9 +260,11 @@ namespace irc_bot_v2._0
             }
 
             this.ivConnChkCounter++;
-            if (this.ivConnChkCounter >= 10 * 60)   // every 10 minutes?
+            if (this.ivConnChkCounter >= 10 * 60)   // every 10 minutes
             {
                 Program.Out("### SENDING KEEP ALIVE TO '" + Options.GetInstance().Nickname + "' ###");
+
+                this.ivConnChkCounter = 0;// reset counter
 
                 // 2010-03-20 Buju: added try-catch around network.Send()
                 try
@@ -270,9 +273,9 @@ namespace irc_bot_v2._0
                 }
                 catch (Exception ex)
                 {
-                    Program.Out("### Sending Keep Alive to '" + Options.GetInstance().Nickname + "'  F A I L E D !   ###\tWill try in 2 Minutes again ...");
+                    Program.Out("### Sending Keep Alive to '" + Options.GetInstance().Nickname + "'  F A I L E D !   ###");
                     Program.Out(ex.Message);
-                    this.ivConnChkCounter = 8 * 60;
+                    this.Reconnect();
                 }
             }
         }//protected void timerEvent(object o)

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irc_bot_v2.00", "IRCBotUI\irc_bot_v2.00.csproj", "{A3044AB5-3887-498C-910A-A993AFAFB2AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRCBotInterfaces", "IRCBotInterfaces\IRCBotInterfaces.csproj", "{EFB0F237-205C-4A35-87A9-0A362A86851F}"
