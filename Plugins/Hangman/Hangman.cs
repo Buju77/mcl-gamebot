@@ -5,6 +5,15 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using IRCBotInterfaces;
 
+/**
+ * Changelog:
+ * 
+ * 1.00.2007-08-24: initial release from mk[
+ * 
+ * 1.01.2010-04-21: increased timelimit to 10 mins instead of 3 mins
+ * 
+ */
+
 namespace Hangman
 {
     public class Hangman : ICommand
@@ -66,7 +75,7 @@ namespace Hangman
         {
             get
             {
-                return "1.00.2007-08-24";
+                return "1.01.2010-04-21";
             }
         }
 
@@ -277,13 +286,22 @@ namespace Hangman
         {
             try
             {
-                Thread.Sleep(120000);
+                Thread.Sleep(7 * 60 * 1000);
                 if (!Running)
                     return;
                 bot.SendMessage(BuildMessage("Faster!"));
                 Thread.Sleep(60000);
                 if (!Running)
                     return;
+                bot.SendMessage(BuildMessage("Harder!"));
+                Thread.Sleep(60000);
+                if (!Running)
+                    return;
+                bot.SendMessage(BuildMessage("Stronger!"));
+                Thread.Sleep(60000);
+                if (!Running)
+                    return;
+
                 bot.SendMessage(BuildMessage("Time's up! How lame."));
                 bot.SendMessage(BuildMessage(String.Format("The word was: {0}", solution)));
                 running = false;

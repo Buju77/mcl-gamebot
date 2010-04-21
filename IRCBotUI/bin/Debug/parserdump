@@ -4,16 +4,16 @@ hangman
 Insult
 ### plugin with id: Motivation ###
 Motivation
-rankings buju 2;DERmanu 29;Maria 44;mactschi 1;ebtschi 2;
+rankings buju 2;DERmanu 33;Maria 44;mactschi 1;ebtschi 2;
 turns 4 28 3 2
 m+http://www.hornoxe.com/wp-content/picdumps/picdump116/thumbs/thumbs_hornoxe.com_picdump116_06.jpg 3
 m+http://www.emok.tv/wp-content/gallery/emok-picdump-99/thumbs/thumbs_EMOK%20Picdump%2099_043.jpg 2
 m+http://www.bildschirmarbeiter.com/content/images/picdump-09-08-21/picdump-28.jpg 3
-m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/thumbs/thumbs_13.jpg 2
+m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/thumbs/thumbs_13.jpg 3
 m+http://www.orschlurch.de/wp-content/gallery/pixxdump-80-2/38.jpg 3
 m+http://xkcd.com/303/ 4
 m+http://cheezhawtness.files.wordpress.com/2010/03/129123222430221499.jpg 2
-m+http://imgs.xkcd.com/comics/supported_features.png 0
+m+http://imgs.xkcd.com/comics/supported_features.png 1
 m-http://www.funlinx.to/content/bilder/picdump_102/53.jpg 2
 m-http://www.eblogx.com/media/pictures/special/picturedump-68/19.jpg 1
 m-http://cheezhawtness.files.wordpress.com/2010/03/129126609397811277.jpg 1
@@ -28,11 +28,11 @@ m-http://cheezhawtness.files.wordpress.com/2010/03/129143612939405124.jpg 0
 m-http://cheezhawtness.files.wordpress.com/2010/03/129143600113541789.jpg 1
 m-http://cheezhawtness.files.wordpress.com/2010/04/129148249256094112.jpg 0
 m-http://cheezhawtness.files.wordpress.com/2010/03/129142294699446385.jpg 0
-m-http://www.bildschirmarbeiter.com/content/anigifs/animated-gifs-28/animated-gifs-28-10.gif 0
+m-http://www.bildschirmarbeiter.com/content/anigifs/animated-gifs-28/animated-gifs-28-10.gif 1
 m-http://cheezhawtness.files.wordpress.com/2010/04/129151582990511801.jpg 0
 m-http://cheezhawtness.files.wordpress.com/2010/04/129153191775954320.jpg 0
 m-http://cheezhawtness.files.wordpress.com/2010/04/129156744886448850.jpg 0
-m-http://cheezhawtness.files.wordpress.com/2010/04/129155757102989407.jpg 0
+m-http://cheezhawtness.files.wordpress.com/2010/04/129155757102989407.jpg 1
 w+http://xkcd.com/303/ 4
 w+http://i217.photobucket.com/albums/cc182/SuperSaiyanBowser2/Motivational%20Posters/MotivationalWhosAwesome.jpg 3
 w+http://jaysolomon.files.wordpress.com/2009/04/ysoab.jpg 3
@@ -52,11 +52,11 @@ mystats
 RemindMe
 ### plugin with id: roulette ###
 roulette
-buju;53;97;150;0
+buju;54;99;153;0
 Maria;70;89;159;0
-alph;62;106;168;0
-sliver;5;12;17;0
-DERmanu;123;98;221;0
+alph;63;109;172;0
+sliver;5;13;18;0
+DERmanu;127;100;227;0
 join;1;1;2;0
 ebtschi;42;50;92;0
 50f3a8d5;0;1;1;0

@@ -1,6 +1,6 @@
 ^!test$|test failed.
 ^!blub$|blub
-^!haha$|http://perso.orange.fr/kwik-e-simpsons/wallpapers/nelson-1024x768.gif
+^!haha$|<nelson>haha!</nelson>
 ^!stats$|http://a1ph.dyndns.org/stuff/ircstats.php
 ^!blog$|http://mc04.a1ph.dyndns.org/
 ^!fh(?: (.*))?$|http://a1ph.dyndns.org/fh/$1
