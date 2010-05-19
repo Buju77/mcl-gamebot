@@ -85,7 +85,10 @@
 ^v77$|I'm constructing!
 ^v78$|Repair the vehicle!
 ^v79$|Destroy the vehicle!
-^v88$|I'm deploying!
+^v89$|I'm lost!
+^v96$|I'm procrastinating!
+^v97$|I'm testing my code!
+^v98$|I'm deploying!
 ^v99$|My code is building!
 ^z7$|Attack!
 ^z8$|Fall back!
@@ -98,3 +101,4 @@
 ^!slap ([^ ]+)$|% slaps $1 around a bit with a large trout!
 ^!bug$|http://icanhascheezburger.files.wordpress.com/2008/03/funny-pictures-orange-kitten-has-ladybug.jpg
 ^!feature$|http://macnugget.org/albums/cars/feature.jpeg
+^!tv$|http://www.pogdesign.co.uk/cat/5-2010
