@@ -628,6 +628,11 @@ namespace irc_bot_v2._0
                 }
             }
 
+	    else if ("$opme".Equals(command))
+	    {
+		    this.ivParent.AddOutgoingMessage("MODE " + Options.GetInstance().Channel + " +o " + sender);
+	    }
+	    
             else if ("$help".Equals(command))
             {
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$saveusers | " + Translator.Translate("save user data to file")));
@@ -641,6 +646,7 @@ namespace irc_bot_v2._0
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$auth <USERNAME> | " + Translator.Translate("change auth of <USERNAME>")));
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$quit <QUITMSG> | " + Translator.Translate("quit irc with <QUITMSG>")));
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$list | "+Translator.Translate("list available plugin commands")));
+                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$opme | " + Translator.Translate("ops the user")));
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$help | " + Translator.Translate("display this help")));
             }
         }
