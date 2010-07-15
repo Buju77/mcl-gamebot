@@ -300,7 +300,14 @@ namespace irc_bot_v2._0
 
                         string time = user.LastMessage.Substring(0, timeEnd);
                         DateTime timeDT;
-                        DateTime.TryParse(time, out timeDT);
+                        try
+                        {
+                            timeDT = DateTime.Parse(time);
+                        }
+                        catch
+                        {
+                            continue;
+                        }
                         lastMsgs[timeDT] = user.LastMessage;
                     }
                 }

@@ -99,7 +99,11 @@ namespace BotPlugins
                 maxString = values.Groups["max"].Value.Trim();
 
                 // parse min value
-                if (!Int32.TryParse(minString, out min))
+                try
+                {
+                    min = Int32.Parse(minString);
+                }
+                catch
                 {
                     response.Add(Utilities.BuildPrivMsg(receiver, string.Format("Error: '{0}' is too big.", maxString)));
                     return response;
@@ -121,10 +125,17 @@ namespace BotPlugins
                 // standard roll (1 - 100)
                 max = 100;
             }
-            else if (!Int32.TryParse(maxString, out max))
+            else
             {
-                response.Add(Utilities.BuildPrivMsg(receiver, string.Format("Error: '{0}' is too big.", maxString)));
-                return response;
+                try
+                {
+                    max = Int32.Parse(maxString);
+                }
+                catch
+                {
+                    response.Add(Utilities.BuildPrivMsg(receiver, string.Format("Error: '{0}' is too big.", maxString)));
+                    return response;
+                }
             } 
             #endregion
 

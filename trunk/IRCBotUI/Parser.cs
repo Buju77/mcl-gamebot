@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using IRCBotInterfaces;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace irc_bot_v2._0
 {
@@ -537,12 +538,12 @@ namespace irc_bot_v2._0
         {
             if ("$saveusers".Equals(command))
             {
-                this.ivParent.Users.SaveUsersToFile(Options.GetInstance().UserInfoFileName);
+                this.ivParent.Users.SaveUsersToFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("userinfo saved")));
             }
             else if ("$loadusers".Equals(command))
             {
-                this.ivParent.Users.LoadUsersFromFile(Options.GetInstance().UserInfoFileName);
+                this.ivParent.Users.LoadUsersFromFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
                 this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("userinfo restored")));
             }
 

@@ -161,7 +161,11 @@ namespace Slap
                         this.m_slappingDict.Add(parts[0], new Dictionary<string, int>());
                     }
                     int val;
-                    if (!Int32.TryParse(parts[2], out val))
+                    try
+                    {
+                        val = Int32.Parse(parts[2]);
+                    }
+                    catch
                     {
                         val = 0;
                     }

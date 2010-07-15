@@ -94,7 +94,11 @@ namespace irc_bot_v2._0
 
 		private Options()
         {
+#if PocketPC
+            this.ivApplicationPath = Path.GetDirectoryName(System.Reflection.Assembly.GetCallingAssembly().ManifestModule.FullyQualifiedName);
+#else
             this.ivApplicationPath = Environment.CurrentDirectory;
+#endif
 
             StreamReader myfile = new StreamReader(this.ivApplicationPath + "\\opts.conf");//opens the file
             this.ivServername = myfile.ReadLine();//reads the first line of the file

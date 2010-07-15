@@ -441,10 +441,34 @@ namespace Motivation
                         // parse turn numbers                  
                         if (turnValues.Length == 4)
                         {
-                            Int32.TryParse(turnValues[0], out m_wpTurn);
-                            Int32.TryParse(turnValues[1], out m_wmTurn);
-                            Int32.TryParse(turnValues[2], out m_mpTurn);
-                            Int32.TryParse(turnValues[3], out m_mmTurn);
+                            try
+                            {
+                                m_wpTurn = Int32.Parse(turnValues[0]);
+                            }
+                            catch
+                            {
+                            }
+                            try
+                            {
+                                m_wmTurn = Int32.Parse(turnValues[1]);
+                            }
+                            catch
+                            {
+                            }
+                            try
+                            {
+                                m_mpTurn = Int32.Parse(turnValues[2]);
+                            }
+                            catch
+                            {
+                            }
+                            try
+                            {
+                                m_mmTurn = Int32.Parse(turnValues[3]);
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
                     else
@@ -456,10 +480,19 @@ namespace Motivation
 
                         string[] linkAndCount = line.Substring(1).Split(' ');
                         string link = linkAndCount[0];
-                        int count;
-                        if (linkAndCount.Length != 2 || !Int32.TryParse(linkAndCount[1], out count))
+                        
+                        int count = 0;
+
+                        if (linkAndCount.Length == 2)
                         {
-                            count = 0;
+                            try
+                            {
+                                count = Int32.Parse(linkAndCount[1]);
+                            }
+                            catch
+                            {
+                                count = 0;
+                            }
                         }
 
                         // add link and count to dictionary
