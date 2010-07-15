@@ -119,21 +119,37 @@ namespace irc_bot_v2._0
 
         public void StartBot()
         {
+#if PocketPC
+#else
             Program.Out("entering loop: enter 'quit' to exit");
             bool active = true;
             while (active) {
                 string userinput = Console.ReadLine();
                 if (userinput.Equals("quit")) {
-                    Program.Out("saving state ...");
-                    this.Dump();
-                    this.ivUsers.SaveUsersToFile(Options.GetInstance().UserInfoFileName);
+                    Quit();
                     active = false;
                     break;
-                } else if (userinput.StartsWith("say")) {
-                    this.ivIncomingMessageQueue.Add("SAY" + userinput.Substring(4));
+                } else {
+                    HandleUserInput(userinput);
                 }
             }
             Program.Out("shutting down. cya");
+#endif
+        }
+
+        internal void HandleUserInput(string input)
+        {
+            if (input.StartsWith("say"))
+            {
+                this.ivIncomingMessageQueue.Add("SAY" + input.Substring(4));
+            }
+        }
+
+        internal void Quit()
+        {
+            Program.Out("saving state ...");
+            this.Dump();
+            this.ivUsers.SaveUsersToFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
         }
 
         public void StartChannelSpecificStuff()
@@ -250,7 +266,7 @@ namespace irc_bot_v2._0
             if (this.ivDumpCounter >= 60 * 60)      // every hour
             {
                 this.Dump();
-                this.ivUsers.SaveUsersToFile(Options.GetInstance().UserInfoFileName);
+                this.ivUsers.SaveUsersToFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
 
                 Program.Out("");
                 Program.Out("#### Dumped Data and User-Info.");
@@ -309,7 +325,7 @@ namespace irc_bot_v2._0
 
         public List<string> GetPluginConfig(ICommand plugin)
         {
-            string pluginConfigFileName = Path.Combine(Options.GetInstance().PluginDir, plugin.ID + ".conf");
+            string pluginConfigFileName = Path.Combine(Options.GetInstance().ApplicationPath, Path.Combine(Options.GetInstance().PluginDir, plugin.ID + ".conf"));
             bool fileSuccess;
             string fileErrorMsg;
             FileReader file = new FileReader(pluginConfigFileName, out fileSuccess, out fileErrorMsg);
@@ -326,7 +342,7 @@ namespace irc_bot_v2._0
 
         public void SetPluginConfig(ICommand plugin, List<string> content)
         {
-            string pluginConfigFileName = Path.Combine(Options.GetInstance().PluginDir, plugin.ID + ".conf");
+            string pluginConfigFileName = Path.Combine(Options.GetInstance().ApplicationPath, Path.Combine(Options.GetInstance().PluginDir, plugin.ID + ".conf"));
             bool fileSuccess;
             string fileErrorMsg;
             FileReader file = new FileReader(pluginConfigFileName, out fileSuccess, out fileErrorMsg);

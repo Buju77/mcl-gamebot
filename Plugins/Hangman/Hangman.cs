@@ -36,7 +36,7 @@ namespace Hangman
                 {
                     try
                     {
-                        timeThread.Interrupt();
+                        timeThread.Abort();
                     }
                     catch (Exception e)
                     {
@@ -306,7 +306,7 @@ namespace Hangman
                 bot.SendMessage(BuildMessage(String.Format("The word was: {0}", solution)));
                 running = false;
             }
-            catch (ThreadInterruptedException te)
+            catch (ThreadAbortException)
             {
                 return;
             }

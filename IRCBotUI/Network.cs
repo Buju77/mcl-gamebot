@@ -107,7 +107,7 @@ namespace irc_bot_v2._0
             {
                 Byte[] letterB = new Byte[1];
                 sok.Receive(letterB);//, 1, 0);
-                letter = Encoding.ASCII.GetString(letterB);//,0,1);
+                letter = Encoding.ASCII.GetString(letterB, 0, 1);
                 if (letter == "\n")
                 {
                     if (line.EndsWith("\r"))

@@ -17,7 +17,9 @@ namespace irc_bot_v2._0
 
         public PluginLoader(string pluginDir)
         {
+#if !PocketPC
             AppDomain.CurrentDomain.SetShadowCopyFiles();
+#endif
 
             this.ivPluginDir = pluginDir;
         }

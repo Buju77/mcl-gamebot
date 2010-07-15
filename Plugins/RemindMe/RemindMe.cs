@@ -179,7 +179,7 @@ namespace RemindMe {
 
             Match values = Regex.Match(parameters, cKeyPattern, RegexOptions.IgnoreCase);
 
-#if DEBUG
+#if DEBUG && !PocketPC
             for (int i = 0; i < values.Groups.Count; i++) {
                 Program.Out("#### PLUG-IN: " + values.Groups[i].Value);
             }
@@ -195,29 +195,39 @@ namespace RemindMe {
             nowTime = nowTime.AddMilliseconds(-nowTime.Millisecond);
             double totalMS = 0;
 
-            if (DateTime.TryParse(when, out remindTime)) {                               
+            try
+            {
+                remindTime = DateTime.Parse(when);
                 // input: 2007-01-21 23:59
                 // or: 23:59
                 totalMS = ((TimeSpan)(remindTime - nowTime)).TotalMilliseconds;
-                
+
                 //
                 // remindTime: 18:00
                 // currentTime: 19:00 
                 // ==> remindTime + 24h
                 //
-                if (nowTime.TimeOfDay > remindTime.TimeOfDay) {
+                if (nowTime.TimeOfDay > remindTime.TimeOfDay)
+                {
                     totalMS += 24 * 60 * 60 * 1000;
                 }
-                
+
                 // occurs very often
                 // I will remind myself at 2007-06-28 22:44:999625
                 totalMS += 10;
-
-            } else if (Int64.TryParse(when, out minutes)) {
-                totalMS = (double) minutes * 60 * 1000.0;
-            } else {
-                response.Add(Utilities.BuildPrivMsg(receiver, "Wrong syntax!!!"));
-                return response;
+            }
+            catch
+            {
+                try
+                {
+                    minutes = Int64.Parse(when);
+                    totalMS = (double)minutes * 60 * 1000.0;
+                }
+                catch
+                {
+                    response.Add(Utilities.BuildPrivMsg(receiver, "Wrong syntax!!!"));
+                    return response;
+                }
             }
 
             if (who.ToLower() == "me")

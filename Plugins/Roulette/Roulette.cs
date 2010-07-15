@@ -159,7 +159,7 @@ namespace Roulette
             {
                 Thread.Sleep(30 * 60000);
             }
-            catch (ThreadInterruptedException)
+            catch (ThreadAbortException)
             {
             }
             finally
@@ -175,7 +175,7 @@ namespace Roulette
         private void EndRoulette(string username)
         {
             running = false;
-            timerThread.Interrupt();
+            timerThread.Abort();
 
 
             if (participants.Contains(username))
