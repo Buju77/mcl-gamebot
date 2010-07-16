@@ -98,7 +98,6 @@
 ^.*wat is wacken\??.*$|%, dat is wacken: http://www.wacken.com [+]
 ^.*(%nick%\s*[:,]?\s*usuk|usuk\s*,?\s*%nick%).*$|%, aufs maul?
 ^.*(auf'?s\s+maul\s*,?\s*%nick%|%nick%\s*[:,]?\s*auf'?s\s+maul).*$|nee, lass ma stecken %
-^!slap ([^ ]+)$|% slaps $1 around a bit with a large trout!
 ^!bug$|http://icanhascheezburger.files.wordpress.com/2008/03/funny-pictures-orange-kitten-has-ladybug.jpg
 ^!feature$|http://macnugget.org/albums/cars/feature.jpeg
 ^!tv$|http://www.pogdesign.co.uk/cat/5-2010

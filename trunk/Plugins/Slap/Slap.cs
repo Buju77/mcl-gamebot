@@ -92,7 +92,7 @@ namespace Slap
                 response.AddRange(this.m_slappingDict
                     .Where(kv => kv.Value.Count() > 0)
                     .Select(kv => new KeyValuePair<string, int>(kv.Key, kv.Value.Select(kv2 => kv2.Value).Sum()))
-                    .OrderBy(kv => kv.Value)
+                    .OrderByDescending(kv => kv.Value)
                     .Select(kv => Utilities.BuildNotice(nick, kv.Key + ": " + kv.Value))
                     .ToList());
                 
@@ -102,7 +102,7 @@ namespace Slap
                     .GroupBy(kv => kv.Key)
                     .Where(g => g.Count() > 0)
                     .Select(g => new KeyValuePair<string, int>(g.Key, g.Sum(x => x.Value)))
-                    .OrderBy(kv => kv.Value)
+                    .OrderByDescending(kv => kv.Value)
                     .Select(kv => Utilities.BuildNotice(nick, kv.Key + ": " + kv.Value))
                     .ToList());
             }
