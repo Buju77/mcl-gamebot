@@ -20,14 +20,16 @@ namespace irc_bot_v2._0
         public MainForm()
         {
             InitializeComponent();
+
+            this.tbLogWindow.Text = "irc bot started up.";
         }
 
         internal void AddOutput(string output)
         {
             Action a = () =>
             {
-                this.tbLogWindow.Text += output + Environment.NewLine;
-                this.tbLogWindow.SelectionStart = this.tbLogWindow.Text.Length;
+                this.tbLogWindow.Text = output + Environment.NewLine + this.tbLogWindow.Text.Substring(0, Math.Min(this.tbLogWindow.Text.Length, 10000));
+                this.tbLogWindow.SelectionStart = 0;
                 this.tbLogWindow.ScrollToCaret();
             };
 
