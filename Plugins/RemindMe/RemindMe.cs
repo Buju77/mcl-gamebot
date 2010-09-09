@@ -63,11 +63,11 @@ namespace RemindMe {
         private static string cRemindListListEntry = @"#{0:00} Remind {1} at {2} about: {3}";
         private static string cRemindListEmpty = @"There are currently no reminders in my queue.";
         private static string cTooManyMinutes = @"Too many minutes! Try a lesser number.";
-#if DEBUG
-        private static string cDateFormat = "yyyy-MM-dd HH:mm:ffffff";
-#else
+//#if DEBUG
+//        private static string cDateFormat = "yyyy-MM-dd HH:mm:ffffff";
+//#else
         private static string cDateFormat = "yyyy-MM-dd HH:mm";
-#endif
+//#endif
         #endregion
 
         #region private Members
