@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motivation", "Plugins\Motiv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slap", "Plugins\Slap\Slap.csproj", "{CF2F9A33-96BA-4C9E-8B95-B64F0949AE78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tell", "Plugins\Tell\Tell.csproj", "{CBAB1F3D-E3CA-4D1A-8680-A713B5D63E84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{CF2F9A33-96BA-4C9E-8B95-B64F0949AE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF2F9A33-96BA-4C9E-8B95-B64F0949AE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF2F9A33-96BA-4C9E-8B95-B64F0949AE78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBAB1F3D-E3CA-4D1A-8680-A713B5D63E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBAB1F3D-E3CA-4D1A-8680-A713B5D63E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBAB1F3D-E3CA-4D1A-8680-A713B5D63E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBAB1F3D-E3CA-4D1A-8680-A713B5D63E84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
