@@ -296,9 +296,9 @@ namespace irc_bot_v2._0
             }
         }//protected void timerEvent(object o)
 
-        internal void FireUserAction(Utilities.UserAction action, EventArgs e)
+        internal void FireUserAction(UserActionEventArgs e)
         {
-            if (this.UserActionOccured != null) { this.UserActionOccured(this, action, e); }
+            if (this.UserActionOccured != null) { this.UserActionOccured(this, e); }
         }
 
         internal List<ICommand> LoadPlugins()
@@ -316,7 +316,7 @@ namespace irc_bot_v2._0
 
         public event EventHandler TimerSecondOccured;
 
-        public event Utilities.UserActionHandler UserActionOccured;
+        public event UserActionEventHandler UserActionOccured;
 
         public void SendMessage(string message)
         {
