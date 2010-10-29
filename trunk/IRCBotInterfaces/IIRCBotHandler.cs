@@ -8,7 +8,7 @@ namespace IRCBotInterfaces
     {
         event EventHandler TimerSecondOccured;
 
-        event Utilities.UserActionHandler UserActionOccured;
+        event UserActionEventHandler UserActionOccured;
 
         void SendMessage(string message);
 

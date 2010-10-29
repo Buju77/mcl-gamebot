@@ -6,10 +6,6 @@ namespace IRCBotInterfaces
 {
     public class Utilities
     {
-        public enum UserAction { Joined, Part, Quit };
-
-        public delegate void UserActionHandler(object sender, UserAction action, EventArgs e);
-
         #region static functions
         public static string BuildPrivMsg(string receiver, string message)
         {

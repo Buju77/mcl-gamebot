@@ -411,7 +411,7 @@ namespace irc_bot_v2._0
                 {
                     this.ivParent.AddOutgoingMessage("MODE " + Options.GetInstance().Channel + " +o " + in_nick);
                 }
-                this.ivParent.FireUserAction(Utilities.UserAction.Joined, new EventArgs());
+                this.ivParent.FireUserAction(new UserActionEventArgs(UserAction.Joined, in_nick, in_name));
             }
             #endregion//JOIN
 
@@ -480,14 +480,14 @@ namespace irc_bot_v2._0
             #region QUIT
             else if (in_action.StartsWith("QUIT"))
             {
-                this.ivParent.FireUserAction(Utilities.UserAction.Quit, new EventArgs());
+                this.ivParent.FireUserAction(new UserActionEventArgs(UserAction.Quit, in_nick, in_name));
             }
             #endregion//QUIT
 
             #region PART
             else if (in_action.StartsWith("PART"))
             {
-                this.ivParent.FireUserAction(Utilities.UserAction.Part, new EventArgs());
+                this.ivParent.FireUserAction(new UserActionEventArgs(UserAction.Quit, in_nick, in_name));
             }
             #endregion//PART
         }
