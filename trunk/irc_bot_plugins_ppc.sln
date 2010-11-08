@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slap_ppc", "Plugins\Slap\Sl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRCBotInterfaces_PPC", "IRCBotInterfaces\IRCBotInterfaces_PPC.csproj", "{F9EF701B-BD57-43DE-80E1-3A0AE3EEC404}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tell_ppc", "Plugins\Tell\Tell_ppc.csproj", "{FB540C98-0033-470E-80F8-DF24EBE2A505}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9EF701B-BD57-43DE-80E1-3A0AE3EEC404} = {F9EF701B-BD57-43DE-80E1-3A0AE3EEC404}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +60,10 @@ Global
 		{F9EF701B-BD57-43DE-80E1-3A0AE3EEC404}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9EF701B-BD57-43DE-80E1-3A0AE3EEC404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9EF701B-BD57-43DE-80E1-3A0AE3EEC404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB540C98-0033-470E-80F8-DF24EBE2A505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB540C98-0033-470E-80F8-DF24EBE2A505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB540C98-0033-470E-80F8-DF24EBE2A505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB540C98-0033-470E-80F8-DF24EBE2A505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
