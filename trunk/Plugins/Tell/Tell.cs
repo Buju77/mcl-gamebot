@@ -46,7 +46,7 @@ namespace Tell
         {
             get
             {
-                return "0.10.2010-10-29";
+                return "0.11.2010-12-11";
             }
         }
 
@@ -111,7 +111,9 @@ namespace Tell
 
                     m_tellDict[who.ToLower()].Add(msg);
 
-                    response.Add(Utilities.BuildPrivMsg(m_botCore.Channel, string.Format("Ok, I will tell {0} about '{1}'", who, msg)));
+                    // response texts
+                    response.Add(Utilities.BuildPrivMsg(m_botCore.Channel, "Roger, roger."));
+                    response.Add(Utilities.BuildNotice(nick, string.Format("Ok, I'll tell {0} about '{1}'", who, msg)));
                 }
             }
 
@@ -166,6 +168,7 @@ namespace Tell
                     foreach (var who in m_tellDict.Keys)
                     {
                         // check if we have something to tell to the just joined user
+                        bool hadSomethingToSay = false;
                         if (nickname.Contains(who))
                         {
                             // go through the list to tell something
@@ -173,10 +176,15 @@ namespace Tell
                             {
                                 // send what to tell
                                 m_botCore.SendMessage(Utilities.BuildNotice(nickname, message));
+                                hadSomethingToSay = true;
                             }
 
                             // remove the messages from memory
-                            nicksToRemove.Add(who);                            
+                            nicksToRemove.Add(who);
+                        }
+                        if (hadSomethingToSay)
+                        {
+                            m_botCore.SendMessage(Utilities.BuildPrivMsg(m_botCore.Channel, string.Format("I just told {0} something.", who)));
                         }
                     }
                     break;
