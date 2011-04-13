@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Network.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="OwnerCommands.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Program.cs" />

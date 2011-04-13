@@ -14,7 +14,13 @@ namespace irc_bot_v2._0
         private string ivCurrentIP;
 
         private IRCBot ivParent;
-        private List<ICommand> ivPlugins;
+        internal List<ICommand> Plugins
+        {
+            get;
+            private set;
+        }
+
+        private OwnerCommands ownerCommands;
 
         private string ivTopic;
 
@@ -24,15 +30,17 @@ namespace irc_bot_v2._0
 
             this.ivParent = parent;
 
+            this.ownerCommands = new OwnerCommands(parent);
+
             SetPluginList(pluginList);
         }
 
         public void SetPluginList(List<ICommand> pluginList)
         {
-            this.ivPlugins = pluginList;
+            this.Plugins = pluginList;
 
             Console.WriteLine();
-            foreach (ICommand plugin in this.ivPlugins)
+            foreach (ICommand plugin in this.Plugins)
             {
                 try
                 {
@@ -134,7 +142,7 @@ namespace irc_bot_v2._0
                     i++;
                 }
 
-                foreach (ICommand plug in this.ivPlugins)
+                foreach (ICommand plug in this.Plugins)
                 {
                     if (dumpPerPlugin.ContainsKey(plug.ID))
                     {
@@ -163,7 +171,7 @@ namespace irc_bot_v2._0
         public void SaveState(string filename)
         {
             List<string> dumpContent = new List<string>();
-            foreach (ICommand plug in this.ivPlugins)
+            foreach (ICommand plug in this.Plugins)
             {
                 try
                 {
@@ -295,17 +303,61 @@ namespace irc_bot_v2._0
             #region PRIVMSG
             if (in_action.StartsWith("PRIVMSG"))
             {
-                if (this.ivParent.Users.GetUserIgnored(in_name)) { return; }
-
-                if (in_msg.StartsWith("$") && in_sender != Options.GetInstance().Channel && this.ivParent.Users.GetUserAuth(in_name) >= 1000)
+                if (this.ivParent.Users.GetUserIgnored(in_name))
                 {
-                    ParseOwnerCommands(in_msg, in_sender);
+                    return;
+                }
+
+                var address1 = Options.GetInstance().Nickname + ", ";
+                var address2 = address1.Replace(',', ':');
+                if (in_msg.StartsWith(address1) || in_msg.StartsWith(address2))
+                {
+                    var tmp = in_msg.Substring(address1.Length);
+
+                    if (tmp.StartsWith("!") || tmp.StartsWith("$"))
+                    {
+                        in_msg = tmp;
+                    }
+                    else
+                    {
+                        bool recognized = false;
+
+                        if (this.ivParent.Users.GetUserAuth(in_name) >= this.ownerCommands.MinimumAuth)
+                        {
+                            foreach (var keyword in this.ownerCommands.Keywords)
+                            {
+                                if (Regex.IsMatch("$" + tmp, keyword, RegexOptions.IgnoreCase))
+                                {
+                                    in_msg = "$" + tmp;
+                                    recognized = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!recognized)
+                        {
+                            in_msg = "!" + tmp;
+                        }
+                    }
+                }
+
+                if (in_msg.StartsWith("$") && this.ivParent.Users.GetUserAuth(in_name) >= this.ownerCommands.MinimumAuth)
+                {
+                    var list = this.ownerCommands.KeywordSaid(Options.GetInstance().Channel.Equals(in_sender), in_nick, in_name, in_ip, in_msg);
+                    foreach (var item in list)
+                    {
+                        this.ivParent.AddOutgoingMessage(item);
+                    }
                 }//if (in_msg.StartsWith("$") && this.ivParent.Users.GetUserAuth(in_name) >= 1000)
 
                 else if (in_msg.Length >= 7 && in_msg.ToLower().StartsWith("!seen "))
                 {
                     string seen_user = in_msg.Substring(6);
-                    if (seen_user.Length > 15) { seen_user = seen_user.Substring(0, 15); }
+                    if (seen_user.Length > 15)
+                    {
+                        seen_user = seen_user.Substring(0, 15);
+                    }
 
                     if (seen_user.Equals("/me") || seen_user.Equals(in_nick) ||
                         seen_user.Equals("me") || seen_user.Equals("myself"))
@@ -356,8 +408,7 @@ namespace irc_bot_v2._0
 
                         string response = String.Format(
                             Translator.Translate("{0} was last seen at {1} ({2} ago)") + " " + answer,
-                            seen_user, time, span.Substring(0, span.LastIndexOf("."))
-                            );
+                            seen_user, time, span);
 
                         this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(in_sender, response));
                     }
@@ -366,7 +417,7 @@ namespace irc_bot_v2._0
                 else
                 {
                     bool responded = false;
-                    foreach (ICommand plugin in this.ivPlugins)
+                    foreach (ICommand plugin in this.Plugins)
                     {
                         try
                         {
@@ -383,13 +434,20 @@ namespace irc_bot_v2._0
                                     break;
                                 }
                             }
-                        } catch (NotImplementedException) {
+                        }
+                        catch (NotImplementedException)
+                        {
                             Program.Out("### Warning in plugin: " + plugin.ID + " ###\tKeywordSaid() not implemented!");
-                        } catch (Exception exx) {
+                        }
+                        catch (Exception exx)
+                        {
                             Program.Out("### ERROR in plugin: " + plugin.ID + " ###");
                             Program.Out(exx.Message);
                         }
-                        if (responded) { break; }
+                        if (responded)
+                        {
+                            break;
+                        }
                     }
 
                     if (!responded)
@@ -407,7 +465,7 @@ namespace irc_bot_v2._0
             #region JOIN
             else if (in_action.StartsWith("JOIN"))
             {
-                if (this.ivParent.Users.GetUserAuth(in_name) >= 200)
+                if (this.ivParent.Users.GetUserAuth(in_name) >= 200 && this.ivParent.Users.GetUserIgnored(in_name))
                 {
                     this.ivParent.AddOutgoingMessage("MODE " + Options.GetInstance().Channel + " +o " + in_nick);
                 }
@@ -532,124 +590,6 @@ namespace irc_bot_v2._0
                 this.ivCurrentIP = message.Substring(message.LastIndexOf("@"));
             }
 
-        }
-
-        private void ParseOwnerCommands(string command, string sender)
-        {
-            if ("$saveusers".Equals(command))
-            {
-                this.ivParent.Users.SaveUsersToFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("userinfo saved")));
-            }
-            else if ("$loadusers".Equals(command))
-            {
-                this.ivParent.Users.LoadUsersFromFile(Path.Combine(Options.GetInstance().ApplicationPath, Options.GetInstance().UserInfoFileName));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("userinfo restored")));
-            }
-
-            else if ("$dump".Equals(command))
-            {
-                this.ivParent.Dump();
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("dump successful")));
-            }
-            else if ("$load".Equals(command))
-            {
-                this.ivParent.Load();
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("load successful")));
-            }
-            else if ("$reloadcmds".Equals(command))
-            {
-                this.ivParent.SimpleCommands.Refresh();
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, Translator.Translate("cmd reload successful")));
-            }
-
-            else if (command.Length > 8 && command.StartsWith("$nick "))
-            {
-                Options.GetInstance().Nickname = command.Substring(6);
-                this.ivParent.AddOutgoingMessage("NICK " + command.Substring(6));
-            }
-
-            else if (command.Length > 10 && command.StartsWith("$ignore "))
-            {
-                this.ivParent.Users.UserIgnoreChanged(command.Substring(8), true);
-            }
-            else if (command.Length > 12 && command.StartsWith("$unignore "))
-            {
-                this.ivParent.Users.UserIgnoreChanged(command.Substring(10), false);
-            }
-            else if (command.Length > 10 && command.StartsWith("$auth "))
-            {
-                //"auth <username> <int>"
-
-                command = command.Trim();
-                
-                string[] parts = command.Split(' ');
-                if (parts.Length == 3)
-                {
-                    int prevAuth = this.ivParent.Users.GetUserAuth(parts[1]);
-
-                    int newAuth = 0;
-                    try
-                    {
-                        newAuth = int.Parse(parts[2]);
-                    }
-                    catch (Exception)
-                    {
-                        prevAuth = -1;
-                    }
-
-                    if (prevAuth != -1)
-                    {
-                        this.ivParent.Users.SetUserAuth(parts[1], newAuth);
-
-                        string response = String.Format(
-                                Translator.Translate("auth of user {0} was changed to {1} (has been {2})"),
-                                parts[1], newAuth, prevAuth
-                                );
-                        this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, response));
-                    }
-                }
-            }
-
-            else if (command.Length > 8 && command.StartsWith("$quit "))
-            {
-                this.ivParent.AddOutgoingMessage("QUIT :" + command.Substring(6));
-            }
-
-            else if ("$list".Equals(command))
-            {
-                foreach (ICommand plugin in this.ivPlugins)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string key in plugin.Keywords)
-                    {
-                        sb.Append(key + ", ");
-                    }
-                    this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, sb.ToString()));
-                }
-            }
-
-	    else if ("$opme".Equals(command))
-	    {
-		    this.ivParent.AddOutgoingMessage("MODE " + Options.GetInstance().Channel + " +o " + sender);
-	    }
-	    
-            else if ("$help".Equals(command))
-            {
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$saveusers | " + Translator.Translate("save user data to file")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$loadusers | " + Translator.Translate("load user data from file")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$dump | " + Translator.Translate("dump plugin data to file")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$load | " + Translator.Translate("load plugin data from file")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$reloadcmds | " + Translator.Translate("reload simple commands")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$nick <NICK> | " + Translator.Translate("change nick to <NICK>")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$ignore <USERNAME> | " + Translator.Translate("add <USERNAME> to ignore list")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$unignore <USERNAME> | " + Translator.Translate("remove <USERNAME> from ignore list")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$auth <USERNAME> | " + Translator.Translate("change auth of <USERNAME>")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$quit <QUITMSG> | " + Translator.Translate("quit irc with <QUITMSG>")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$list | "+Translator.Translate("list available plugin commands")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$opme | " + Translator.Translate("ops the user")));
-                this.ivParent.AddOutgoingMessage(Utilities.BuildPrivMsg(sender, "$help | " + Translator.Translate("display this help")));
-            }
         }
     }
 }

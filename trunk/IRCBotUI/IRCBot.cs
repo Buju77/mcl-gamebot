@@ -14,7 +14,11 @@ namespace irc_bot_v2._0
         private SimpleCommands ivSimpleCommands;
         public SimpleCommands SimpleCommands { get { return this.ivSimpleCommands; } }
 
-        private Parser ivParser;
+        internal Parser Parser
+        {
+            get;
+            private set;
+        }
         
         private Network ivNetwork;
 
@@ -106,12 +110,12 @@ namespace irc_bot_v2._0
             #endregion
 
             #region Start Parser
-            this.ivParser = new Parser(this, pluginList);
+            this.Parser = new Parser(this, pluginList);
             if (File.Exists(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump")))
             {
-                this.ivParser.LoadState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
+                this.Parser.LoadState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
             }
-            Thread parse_thread = new Thread(new ThreadStart(this.ivParser.ThreadStart));
+            Thread parse_thread = new Thread(new ThreadStart(this.Parser.ThreadStart));
             parse_thread.Start();
             parse_thread.IsBackground = true;//the thread stops automatically if the main thread stops
             #endregion
@@ -165,13 +169,13 @@ namespace irc_bot_v2._0
 
         public void Dump()
         {
-            this.ivParser.SaveState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
+            this.Parser.SaveState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
         }
 
         public void Load()
         {
-            this.ivParser.SetPluginList(this.LoadPlugins());
-            this.ivParser.LoadState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
+            this.Parser.SetPluginList(this.LoadPlugins());
+            this.Parser.LoadState(Path.Combine(Options.GetInstance().ApplicationPath, "parserdump"));
         }
 
         /// <summary>
