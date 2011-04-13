@@ -95,7 +95,7 @@ namespace Tell
                 // using .toLower() to support camelcase nicks
                 if (nick.ToLower().Contains(who.ToLower()) || user.ToLower().Contains(who.ToLower()))
                 {
-                    response.Add(Utilities.BuildPrivMsg(m_botCore.Channel, "Why are you talking to yourself dumbass?!?"));
+                    response.Add(Utilities.BuildPrivMsg(m_botCore.Channel, "Why are you talking to yourself, dumbass?!?"));
                 }
                 else
                 {
@@ -112,8 +112,8 @@ namespace Tell
                     m_tellDict[who.ToLower()].Add(msg);
 
                     // response texts
-                    response.Add(Utilities.BuildPrivMsg(m_botCore.Channel, "Roger, roger."));
-                    response.Add(Utilities.BuildNotice(nick, string.Format("Ok, I'll tell {0} about '{1}'", who, msg)));
+                    string recipient = channel ? m_botCore.Channel : nick;
+                    response.Add(Utilities.BuildNotice(recipient, string.Format("Ok, I'll tell {0} about '{1}'", who, msg)));
                 }
             }
 
