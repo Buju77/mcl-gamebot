@@ -465,7 +465,7 @@ namespace irc_bot_v2._0
             #region JOIN
             else if (in_action.StartsWith("JOIN"))
             {
-                if (this.ivParent.Users.GetUserAuth(in_name) >= 200 && this.ivParent.Users.GetUserIgnored(in_name))
+                if (this.ivParent.Users.GetUserAuth(in_name) >= 200 && !this.ivParent.Users.GetUserIgnored(in_name))
                 {
                     this.ivParent.AddOutgoingMessage("MODE " + Options.GetInstance().Channel + " +o " + in_nick);
                 }
