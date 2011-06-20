@@ -219,17 +219,24 @@ namespace irc_bot_v2._0
                 this.ivParent.AddOutgoingMessage("PRIVMSG " + Options.GetInstance().Channel + " :" + message.Substring(3));
             }//else if (in_msg.StartsWith("SAY"))
 
-            else if (message.StartsWith(":") && !message.StartsWith(":" + Options.GetInstance().ServerName))
-            {//any input from other users
-                ParseMsgs(message);
+            else if (message.StartsWith(":"))
+            {
+                bool found = false;
+                foreach (var serv in Options.GetInstance().Servers)
+	            {
+                    if (message.StartsWith(":"+serv.Hostname))
+                    {
+                        found = true;
+                        ParseServerMsgs(message.Substring(serv.Hostname.Length + 2));
+                    }
+                }
+                if (!found)
+                {
+                    //any input from other users
+                    ParseMsgs(message);
+                }
                 this.ivParent.ResetConnChk();
-            }//else if (in_msg.StartsWith(":") && !in_msg.StartsWith(":" + this.opts.ServerName))
-
-            else if (message.StartsWith(":" + Options.GetInstance().ServerName))
-            {//any server messages (login, welcome msg, etc.)
-                ParseServerMsgs(message.Substring(Options.GetInstance().ServerName.Length + 2));
-                this.ivParent.ResetConnChk();
-            }//else if (in_msg.StartsWith(":" + this.opts.ServerName))
+            }
         }
 
         private void ParseMsgs(string in_completeMsg)
@@ -556,7 +563,7 @@ namespace irc_bot_v2._0
             {//first server msg: Please wait while we process your connection
                 this.ivParent.AddOutgoingMessage("NICK " + Options.GetInstance().Nickname +
                     "\nUSER " + Options.GetInstance().Username + " 4 " +
-                    Options.GetInstance().ServerName + " :" +
+                    Options.GetInstance().ActiveServer.Hostname + " :" +
                     Options.GetInstance().Fullname);
             }//if (server_msg.StartsWith("020"))
 
@@ -575,7 +582,7 @@ namespace irc_bot_v2._0
                 Options.GetInstance().Nickname += "^";
                 this.ivParent.AddOutgoingMessage("NICK " + Options.GetInstance().Nickname +
                     "\nUSER " + Options.GetInstance().Username + " 4 " +
-                    Options.GetInstance().ServerName + " :" +
+                    Options.GetInstance().ActiveServer.Hostname + " :" +
                     Options.GetInstance().Fullname);
             }//else if (server_msg.StartsWith(""))
 
