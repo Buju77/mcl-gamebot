@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace irc_bot_v2._0
 {
@@ -7,15 +8,13 @@ namespace irc_bot_v2._0
 	/// loads the options for the client
 	/// the values are provided as properties
 	/// </summary>
-	
 	public class Options
 	{
 		#region class variables
+        protected int ivCurrentServerIdx;
         protected string ivApplicationPath;        
 		//each line of the file is a value here:
 		//sorted by line number
-		protected string ivServername;
-		protected int ivPort;
 		protected string ivNickname;
 		protected string ivUsername;
 		protected string ivFullname;
@@ -41,15 +40,23 @@ namespace irc_bot_v2._0
             get { return "commands"; }
         }
 
-
-		public string ServerName
-		{
-            get { return this.ivServername; }
-		}
-		public int Port
-		{
-            get { return this.ivPort; }
-		}
+        public ServerConnection ActiveServer
+        {
+            get
+            {
+                return this.Servers[this.ivCurrentServerIdx];
+            }
+        }
+        internal ServerConnection MoveToNextServer()
+        {
+            this.ivCurrentServerIdx = (this.ivCurrentServerIdx + 1) % this.Servers.Count;
+            return this.ActiveServer;
+        }
+        public List<ServerConnection> Servers
+        {
+            get;
+            protected set;
+        }
 		public string Nickname
 		{
             get { return this.ivNickname; }
@@ -101,8 +108,22 @@ namespace irc_bot_v2._0
 #endif
 
             StreamReader myfile = new StreamReader(this.ivApplicationPath + "\\opts.conf");//opens the file
-            this.ivServername = myfile.ReadLine();//reads the first line of the file
-            this.ivPort = System.Convert.ToInt32(myfile.ReadLine());//second line ...
+
+            this.Servers = new List<ServerConnection>();
+            var serverString = myfile.ReadLine();
+            while (serverString != "---")
+            {
+                var tmp = serverString.Split(':');
+                var serv = new ServerConnection
+                {
+                    Hostname = tmp[0],
+                    Port = Convert.ToInt32(tmp[1])
+                };
+                this.Servers.Add(serv);
+                serverString = myfile.ReadLine();
+            }
+            this.ivCurrentServerIdx = 0;
+            
             this.ivNickname = myfile.ReadLine();//third line ... and so on
             this.ivUsername = myfile.ReadLine();
             this.ivFullname = myfile.ReadLine();
@@ -114,5 +135,20 @@ namespace irc_bot_v2._0
 			myfile.Close();//close the file again
 		}//public Options(string path)
 		#endregion
-	}
+    }
+
+    public class ServerConnection
+    {
+        public string Hostname
+        {
+            get;
+            set;
+        }
+
+        public int Port
+        {
+            get;
+            set;
+        }
+    }
 }

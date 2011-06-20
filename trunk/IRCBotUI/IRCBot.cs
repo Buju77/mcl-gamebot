@@ -84,7 +84,20 @@ namespace irc_bot_v2._0
             #endregion
 
             #region Start Network Connection
-            this.ivNetwork = new Network(Options.GetInstance().ServerName, Options.GetInstance().Port);
+            foreach (var server in Options.GetInstance().Servers)
+            {
+                Program.Out("Trying to connect to " + server.Hostname + " ...");
+                this.ivNetwork = new Network(server.Hostname, server.Port);
+                if (this.ivNetwork.Started)
+                {
+                    break;
+                }
+                else
+                {
+                    Program.Out("Connection to " + server.Hostname + " failed.");
+                }
+            }
+
             if (!this.ivNetwork.Started)
             {
                 Program.Out("Connection failed: " + this.ivNetwork.Message);
@@ -255,7 +268,28 @@ namespace irc_bot_v2._0
             Thread.Sleep(60 * 1000);//one minute
             Program.Out("trying to reconnect ...");
             this.ivConnChkCounter = 0;
-            this.ivNetwork.Connect(Options.GetInstance().ServerName, Convert.ToInt32(Options.GetInstance().Port));
+            var server = Options.GetInstance().ActiveServer;
+            this.ivNetwork.Connect(server.Hostname, server.Port);
+            while (!this.ivNetwork.Started)
+            {
+                Program.Out("Connection to " + server.Hostname + " failed.");
+                server = Options.GetInstance().MoveToNextServer();
+            }
+
+            //foreach (var server in Options.GetInstance().Servers)
+            //{
+            //    Program.Out("Trying to connect to " + server.Hostname + " ...");
+            //    this.ivNetwork = new Network(server.Hostname, server.Port);
+            //    if (this.ivNetwork.Started)
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        Program.Out("Connection to " + server.Hostname + " failed.");
+            //    }
+            //}
+            //this.ivNetwork.Connect(Options.GetInstance().ServerName, Convert.ToInt32(Options.GetInstance().Port));
         }
 
         /// <summary>
