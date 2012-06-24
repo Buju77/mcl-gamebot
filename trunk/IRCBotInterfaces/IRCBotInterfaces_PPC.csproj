@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CronHelper.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IIRCBotHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

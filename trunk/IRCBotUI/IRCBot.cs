@@ -273,7 +273,11 @@ namespace irc_bot_v2._0
             while (!this.ivNetwork.Started)
             {
                 Program.Out("Connection to " + server.Hostname + " failed.");
+                Program.Out("sleeping one minute before moving to next server...");
+                Thread.Sleep(60 * 1000);//one minute
                 server = Options.GetInstance().MoveToNextServer();
+                Program.Out("trying to connect to '" + server.Hostname + ":" + server.Port + "' ...");
+                this.ivNetwork.Connect(server.Hostname, server.Port);
             }
 
             //foreach (var server in Options.GetInstance().Servers)

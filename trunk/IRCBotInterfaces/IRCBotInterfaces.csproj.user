@@ -4,4 +4,7 @@
     <StartProgram>D:\svn\alph\programming\c#\irc_bot\irc_bot_v2.00\IRCBotUI\bin\Debug\irc_bot_v2.00.exe</StartProgram>
     <StartWorkingDirectory>D:\svn\alph\programming\c#\irc_bot\irc_bot_v2.00\IRCBotUI\bin\Debug\</StartWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
 </Project>

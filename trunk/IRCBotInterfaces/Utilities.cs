@@ -27,6 +27,17 @@ namespace IRCBotInterfaces
         {
             Console.WriteLine(DateTime.Now.ToLongTimeString() + ": " + caller.ID + " > " + message);
         }
+
+        public static void CronCheckDescriptor(string cron)
+        {
+            CronHelper.Check(cron);
+        }
+
+        public static bool CronMatchTime(string cron, DateTime dt)
+        {
+            return CronHelper.Match(dt, cron);
+        }
+
         #endregion
     }
 }
