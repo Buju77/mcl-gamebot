@@ -11,6 +11,7 @@
 ^!shoot ([^ ]+)$|$1: [automatic]: *BANG*
 ^!bfg ([^ ]+)$|$1: [BFG-9000]: *BBBRRRRRRRRRRRAAAAAAAAZZZZZZZZZZZZZZZZZZ!!!!!!!!!!!!*
 ^!help$|http://mc04.strangled.net/botcmds.html
+^!cronhelp$|http://de.wikipedia.org/wiki/Crontab
 ^!mitleid ([^ ]+)$|du bist so arm, $1!
 ^!gratz ([^ ]+)$|gratuliere $1!
 ^!jfgi ([^ ]+)$|$1, http://justfuckinggoogleit.com/
