@@ -13,6 +13,7 @@ Project created by alph and developed by MC04.
 !insult
 !rand 100
 !remind
+!tell <username> <message>
 all ET commands
 and much more!
 ```
